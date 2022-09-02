@@ -26,7 +26,17 @@ def intensity():
   odd_invert[::2] = np.fliplr(odd_invert[::2])
   odd_invert = Image.fromarray(odd_invert)
   odd_invert.save('results/intensity03.png')
-  
+
+  half_img = Image.open('images/city.png')
+  half_img = np.array(half_img)
+  size = int(len(half_img)/2)
+  up_half_img = half_img[:size]
+  up_half_img = np.flipud(up_half_img)
+
+  half_img[size:] = up_half_img
+  half_img = Image.fromarray(half_img)
+  half_img.save('results/intensity04.png')
+
   mirror_img = Image.open('images/city.png') 
   mirror_img = np.flipud(mirror_img)
   mirror_img = Image.fromarray(mirror_img)
