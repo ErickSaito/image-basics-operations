@@ -21,6 +21,7 @@ def intensity():
   negative_image = Image.fromarray(negative_image)
   negative_image.save('results/intensity01.png')
 
+  # TODO 2
   tranf_img = Image.open('images/city.png')
   tranf_img = np.array(tranf_img)
   tranf_img[np.where(tranf_img < 100)] = 100
@@ -53,6 +54,11 @@ def intensity():
 # Ajuste de brilho
 def brightness():
   baboon_image = Image.open('images/baboon.png')
+  baboon_image = np.array(baboon_image)
+  baboon_image = (baboon_image/255) ** (1/1.5)
+  baboon_image = baboon_image * 255
+  baboon_image = Image.fromarray(baboon_image.astype(np.uint8))
+  baboon_image.save('results/brightness01.png')
 
 # Planos de bits
 def bits_plan():
@@ -69,3 +75,4 @@ def image_combinator():
 
 
 intensity()
+brightness()
