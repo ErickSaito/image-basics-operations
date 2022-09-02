@@ -21,12 +21,20 @@ def intensity():
   negative_image = Image.fromarray(negative_image)
   negative_image.save('results/intensity01.png')
 
+  tranf_img = Image.open('images/city.png')
+  tranf_img = np.array(tranf_img)
+  tranf_img[np.where(tranf_img < 100)] = 100
+  tranf_img[np.where(tranf_img > 200)] = 200
+  tranf_img = Image.fromarray(tranf_img)
+  tranf_img.save('results/intensity02.png')
+
   odd_invert = Image.open('images/city.png')
   odd_invert = np.array(odd_invert)
   odd_invert[::2] = np.fliplr(odd_invert[::2])
   odd_invert = Image.fromarray(odd_invert)
   odd_invert.save('results/intensity03.png')
 
+ 
   half_img = Image.open('images/city.png')
   half_img = np.array(half_img)
   size = int(len(half_img)/2)
