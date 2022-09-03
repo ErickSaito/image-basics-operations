@@ -1,18 +1,8 @@
 # Implementation of matplotlib function
 import numpy as np
 from PIL import Image, ImageShow
-import matplotlib.pyplot as plt
 from skimage import filters, exposure
   
-# image = plt.imread('images/city.png')
-
-# fig, ax = plt.subplots()
-# ax.imshow(image)
-# ax.axis('off')
-  
-# plt.title('matplotlib.pyplot.imread() function Example', fontweight ="bold")
-# plt.show()
-
 # Transformação de intensidade
 def intensity():
   city_image = Image.open('images/city.png')
@@ -21,12 +11,11 @@ def intensity():
   negative_image = Image.fromarray(negative_image)
   negative_image.save('results/intensity01.png')
 
-  # TODO 2
   tranf_img = Image.open('images/city.png')
   tranf_img = np.array(tranf_img)
-  tranf_img[np.where(tranf_img < 100)] = 100
-  tranf_img[np.where(tranf_img > 200)] = 200
-  tranf_img = Image.fromarray(tranf_img)
+  tranf_img = ((tranf_img / 255) * 100) + 100
+  print(tranf_img > 200)
+  tranf_img = Image.fromarray(tranf_img.astype(np.uint8))
   tranf_img.save('results/intensity02.png')
 
   odd_invert = Image.open('images/city.png')
@@ -35,7 +24,6 @@ def intensity():
   odd_invert = Image.fromarray(odd_invert)
   odd_invert.save('results/intensity03.png')
 
- 
   half_img = Image.open('images/city.png')
   half_img = np.array(half_img)
   size = int(len(half_img)/2)
