@@ -1,8 +1,8 @@
-# Implementation of matplotlib function
+import random
 import numpy as np
 from PIL import Image, ImageShow
-from skimage import filters, exposure
-import random
+from scipy import ndimage
+
 
 # Transformação de intensidade
 def intensity():
@@ -103,13 +103,55 @@ def image_combinator():
   img_combination.save('results/combination.png')
 
 
-
 def image_filter():
   baboon_image = Image.open('images/baboon.png')
+  baboon_image = np.array(baboon_image, dtype=np.float64)
+  # h1
+  # filter_array = np.array([[0, 0, -1, 0, 0],[0, -1, -2, -1, 0],[-1, -2, -16, -2, -1],[0, -1, -2, -1, 0],[0, 0, -1, 0, 0]])
+  
+  # h2
+  # filter_array = (1/256) * np.array([[1, 4, 6, 4, 1],[4, 16, 24, 16, 4],[6, 24, 36, 24, 6],[4, 16, 24, 16, 4],[1, 4, 6, 4, 1]])
+  
+  # h3
+  # filter_array = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
+  
+  # h4
+  # filter_array = np.array([[-1, 2, 1], [0, 0, 0], [1, 2, 1]])
+  
+  # h5
+  # filter_array = np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]])
+  
+  # h6
+  # filter_array = (1/9) * np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]])
+  
+  # h7
+  # filter_array = np.array([[-1, -1, 2], [-1, 2, -1], [2, -1, -1]])
+  
+  # h8
+  # filter_array = np.array([[2, -1, -1,], [-1, 2, -1], [-1, -1, 2]])
+  
+  # h9
+  # filter_array = (1/9) * np.array([[1,0,0,0,0,0,0,0,0], [0,1,0,0,0,0,0,0,0], [0,0,1,0,0,0,0,0,0], [0,0,0,1,0,0,0,0,0], [0,0,0,0,1,0,0,0,0], [0,0,0,0,0,1,0,0,0], [0,0,0,0,0,0,1,0,0], [0,0,0,0,0,0,0,1,0], [0,0,0,0,0,0,0,0,1]])
+  
+  # h10
+  filter_array = (1/8) *np.array([[-1,-1,-1,-1,-1], [-1,2,2,2,-1], [-1,2,8,2,-1], [-1,2,2,2,-1], [-1,-1,-1,-1,-1]])
+  
+  # h11
+  # filter_array = np.array([[-1, -1, 0], [-1, 0, 1], [0, 1, 1]])
+
+  # h3 + h4
+  # filter_array = (np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]) ** 2 + np.array([[-1, 2, 1], [0, 0, 0], [1, 2, 1]]) ** 2) ** (1/2)
+  
+  filter_img = ndimage.convolve(baboon_image, filter_array)
+  filter_img = ((filter_img - filter_img.min()) * (255 / (filter_img.max() - filter_img.min())))
+  filter_img = Image.fromarray(filter_img.astype(np.uint8))
+  filter_img.save('results/filter_img.png')
+
 
 # bits_plan()
 # intensity()
 # brightness()
 
 # mosaic()
-image_combinator()
+# image_combinator()
+image_filter()
