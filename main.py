@@ -63,6 +63,10 @@ def brightness():
 # Planos de bits
 def bits_plan():
   baboon_image = Image.open('images/baboon.png')
+  baboon_image = np.array(baboon_image)
+  baboon_image = (baboon_image % 2) * 255
+  baboon_image = Image.fromarray(baboon_image.astype(np.uint8))
+  baboon_image.save('results/bits_plan01.png')
 
 # Mosaico
 def mosaic():
@@ -73,6 +77,9 @@ def image_combinator():
   baboon_image = Image.open('images/baboon.png')
   butterfly_image = Image.open('images/butterfly.png')
 
+def image_filter():
+  baboon_image = Image.open('images/baboon.png')
 
+bits_plan()
 intensity()
 brightness()
