@@ -14,7 +14,7 @@ def intensity():
 
   tranf_img = Image.open('images/city.png')
   tranf_img = np.array(tranf_img)
-  tranf_img = ((tranf_img / 255) * 100) + 100
+  tranf_img = (tranf_img * (200 / 255))
   tranf_img = Image.fromarray(tranf_img.astype(np.uint8))
   tranf_img.save('results/intensity02.png')
 
@@ -148,10 +148,10 @@ def image_filter():
   filter_img.save('results/filter_img.png')
 
 
+intensity()
 # bits_plan()
-# intensity()
 # brightness()
 
 # mosaic()
 # image_combinator()
-image_filter()
+# image_filter()
