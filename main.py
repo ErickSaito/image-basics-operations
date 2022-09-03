@@ -63,10 +63,10 @@ def chunks(lst, n):
 # Mosaico
 def mosaic():
   baboon_image = Image.open('images/baboon.png')
+  baboon_image = np.array(baboon_image)
 
   n_divisions = 4
   sequence = np.arange(n_divisions ** 2)
-  baboon_image = np.array(baboon_image)
   height, width = baboon_image.shape
   random.shuffle(sequence)
 
@@ -93,7 +93,16 @@ def mosaic():
 # Combinação de imagens 
 def image_combinator():
   baboon_image = Image.open('images/baboon.png')
+  baboon_image = np.array(baboon_image)
+
   butterfly_image = Image.open('images/butterfly.png')
+  butterfly_image = np.array(butterfly_image)
+
+  img_combination = baboon_image * 0.5 + butterfly_image * 0.5
+  img_combination = Image.fromarray(img_combination.astype(np.uint8))
+  img_combination.save('results/combination.png')
+
+
 
 def image_filter():
   baboon_image = Image.open('images/baboon.png')
@@ -102,4 +111,5 @@ def image_filter():
 # intensity()
 # brightness()
 
-mosaic()
+# mosaic()
+image_combinator()
