@@ -40,23 +40,23 @@ def intensity():
   mirror_img.save('results/intensity05.png')
 
 # Ajuste de brilho
-def brightness():
+def brightness(y):
   baboon_image = Image.open('images/baboon.png')
   baboon_image = np.array(baboon_image)
-  baboon_image = (baboon_image/255) ** (1/1.5)
+  baboon_image = (baboon_image/255) ** (1/y)
   baboon_image = baboon_image * 255
   baboon_image = Image.fromarray(baboon_image.astype(np.uint8))
   baboon_image.save('results/brightness01.png')
 
 # Planos de bits
-def bits_plan():
+def bits_plan(bit):
   baboon_image = Image.open('images/baboon.png')
   baboon_image = np.array(baboon_image)
-  baboon_image = ((baboon_image >> 1) & 1) * 255
+  baboon_image = ((baboon_image >> bit) & 1) * 255
   baboon_image = Image.fromarray(baboon_image.astype(np.uint8))
   baboon_image.save('results/bits_plan01.png')
   
-def chunks(lst, n):
+def mosaic_chunks(lst, n):
   for i in range(0, len(lst), n):
     yield lst[i:i + n]
 
@@ -83,7 +83,7 @@ def mosaic():
               (column * block_width) : ((column * block_width) + block_width)
           ])
 
-  imgs_lines_gen = [np.array(i) for i in chunks(block_list, n_divisions)]
+  imgs_lines_gen = [np.array(i) for i in mosaic_chunks(block_list, n_divisions)]
   mosaic_img = np.concatenate(np.concatenate(imgs_lines_gen, axis=1), axis=1)
 
   mosaic_img = Image.fromarray(mosaic_img.astype(np.uint8))
@@ -148,9 +148,9 @@ def image_filter():
   filter_img.save('results/filter_img.png')
 
 
-intensity()
-# bits_plan()
-# brightness()
+# intensity()
+bits_plan(5)
+brightness(1.5)
 
 # mosaic()
 # image_combinator()
