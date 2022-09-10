@@ -228,7 +228,7 @@ def image_filter(filter='h1'):
 
 
 def main():
-  intensity()
+  intensity(1) 
   bits_plan(7)
   brightness(3.5)
   mosaic()
